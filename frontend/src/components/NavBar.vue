@@ -74,5 +74,25 @@ export default {
     text-decoration: none;
     color: #575B5D;
 }
-
+@media (max-width: 768px) {
+    .navbar{
+        flex-direction: column;
+        height: auto;
+        padding: 0;
+    }
+    .title{
+        padding: 10px
+    }
+    .navbar ul {
+        flex-direction: column;
+        display: flex;
+        width: 100%;
+    }
+    .navbar li{
+        padding: 10px;
+        border-top: 1px solid rgb(87, 87, 87);
+        width: 100%;
+        justify-content: center;
+    }
+  }
 </style>
