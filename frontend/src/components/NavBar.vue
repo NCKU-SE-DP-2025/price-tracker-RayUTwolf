@@ -2,6 +2,7 @@
   <nav class="navbar">
     <div class="title">
       <RouterLink to="/overview">價格追蹤小幫手</RouterLink>
+      <div class="hamburger">☰</div>
     </div>
     <ul class="options">
       <li><RouterLink to="/overview">物價概覽</RouterLink></li>
@@ -65,5 +66,44 @@ const logout = () => {
 .navbar a {
   text-decoration: none;
   color: #575b5d;
+}
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+  }
+
+  .navbar li {
+    padding: 10px;
+    border-top: 1px solid rgb(87, 87, 87);
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .title {
+    display: flex;
+    width: 100%;
+    margin-left: 10px;
+    align-items: center;
+  }
+
+  .hamburger {
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+  }
 }
 </style>
