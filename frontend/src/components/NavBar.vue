@@ -1,7 +1,9 @@
 <template>
     <nav class="navbar">
-        <div class="title"> <RouterLink to="/overview">價格追蹤小幫手</RouterLink></div>
-        <div class="hamburger">☰</div>
+        <div class="title">
+            <RouterLink to="/overview">價格追蹤小幫手</RouterLink>
+            <div class="hamburger">☰</div>
+        </div>
         <ul class="options">
             <li><RouterLink to="/overview">物價概覽</RouterLink></li>
             <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
@@ -87,10 +89,6 @@ export default {
         padding: 0;
     }
 
-    .title{
-        padding: 10px
-    }
-
     .navbar ul {
         flex-direction: column;
         display: flex;
@@ -102,10 +100,20 @@ export default {
         border-top: 1px solid rgb(87, 87, 87);
         width: 100%;
         justify-content: center;
+        margin:0
+    }
+
+    .title{
+        display: flex;
+        width:100%;
+        margin-left: 10px;
+        align-items: center;
     }
 
     .hamburger {
+        padding: 10px;
         display: block;
+        margin-left: auto;
     }
   }
 </style>
