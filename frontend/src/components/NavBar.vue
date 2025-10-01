@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, onBeforeUnmount } from "vue";
 import { useAuthStore } from "@/stores/auth";
 
 const userStore = useAuthStore();
@@ -35,6 +35,10 @@ onMounted(() => {
   navbar = document.getElementById("navbar");
   if (navbar) updateRwdDisplay();
   window.addEventListener("resize", updateRwdDisplay);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateRwdDisplay);
 });
 
 const updateRwdDisplay = () => {
