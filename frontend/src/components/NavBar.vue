@@ -33,26 +33,21 @@ var optionsDisplay = ref(false);
 
 onMounted(() => {
   navbar = document.getElementById("navbar");
-
-  navbarWidth = navbar.offsetWidth;
-  optionsDisplay.value = isOptionsDisplayed();
-  console.log(navbar);
-  console.log(navbarWidth);
-  console.log(optionsDisplay.value);
+  if (navbar) updateRwdDisplay();
+  window.addEventListener("resize", updateRwdDisplay);
 });
+
+const updateRwdDisplay = () => {
+  navbarWidth = navbar.offsetWidth;
+  if (navbarWidth > 768) optionsDisplay.value = true;
+  else {
+    optionsDisplay.value = false;
+  }
+};
 
 const toggleOptions = () => {
   if (optionsDisplay.value) optionsDisplay.value = false;
   else optionsDisplay.value = true;
-};
-
-const isOptionsDisplayed = () => {
-  if (navbar) {
-    if (navbarWidth > 768) return true;
-    else {
-      return false;
-    }
-  }
 };
 </script>
 
