@@ -161,6 +161,7 @@ onMounted(() => {
   outline: none;
   cursor: pointer;
   appearance: auto !important;
+}
 .selects > select {
   padding: 0.5em;
   font-size: 1.1em;
