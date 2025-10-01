@@ -113,4 +113,10 @@ function fetchSummary(content, index) {
 .search-bar button:hover {
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .content {
+    padding: 1em 0.5em;
+  }
+}
 </style>
