@@ -6,7 +6,9 @@
     </div>
     <ul class="options" v-show="optionsDisplay">
       <li v-for="option in optionMenu" :key="option.id">
-        <RouterLink :to="option.to">{{ option.label }}</RouterLink>
+        <RouterLink :to="option.to" @click="toggleOptions">{{
+          option.label
+        }}</RouterLink>
       </li>
       <li><RouterLink to="/overview">物價概覽</RouterLink></li>
       <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
