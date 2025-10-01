@@ -41,6 +41,11 @@ onMounted(() => {
   console.log(optionsDisplay.value);
 });
 
+const toggleOptions = () => {
+  if (optionsDisplay.value) optionsDisplay.value = false;
+  else optionsDisplay.value = true;
+};
+
 const isOptionsDisplayed = () => {
   if (navbar) {
     if (navbarWidth > 768) return true;
@@ -127,6 +132,7 @@ const isOptionsDisplayed = () => {
     padding: 10px;
     display: block;
     margin-left: auto;
+    cursor: pointer;
   }
 }
 </style>
