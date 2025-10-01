@@ -10,11 +10,10 @@
           option.label
         }}</RouterLink>
       </li>
-      <li><RouterLink to="/overview">物價概覽</RouterLink></li>
-      <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
-      <li><RouterLink to="/news">相關新聞</RouterLink></li>
-      <li v-if="!isLoggedIn"><RouterLink to="/login">登入</RouterLink></li>
-      <li v-else @click="logout">Hi, {{ getUserName }}! 登出</li>
+      <li v-if="!isLoggedIn">
+        <RouterLink to="/login" @click="toggleOptions">登入</RouterLink>
+      </li>
+      <li v-else @click="logout, toggleOptions">Hi, {{ getUserName }}! 登出</li>
     </ul>
   </nav>
 </template>
