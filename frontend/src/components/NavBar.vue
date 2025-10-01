@@ -4,7 +4,7 @@
       <RouterLink to="/overview">價格追蹤小幫手</RouterLink>
       <div class="hamburger" @click="toggleOptions">☰</div>
     </div>
-    <ul class="options" v-show="optionsDisplay">
+    <ul class="options" v-show="optionsDisplay" @click="toggleOptions">
       <li><RouterLink to="/overview">物價概覽</RouterLink></li>
       <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
       <li><RouterLink to="/news">相關新聞</RouterLink></li>
