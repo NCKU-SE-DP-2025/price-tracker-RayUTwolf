@@ -60,8 +60,10 @@ const updateRwdDisplay = () => {
 };
 
 const toggleOptions = () => {
-  if (optionsDisplay.value) optionsDisplay.value = false;
-  else optionsDisplay.value = true;
+  if (navbarWidth <= 768) {
+    if (optionsDisplay.value) optionsDisplay.value = false;
+    else optionsDisplay.value = true;
+  }
 };
 </script>
 
