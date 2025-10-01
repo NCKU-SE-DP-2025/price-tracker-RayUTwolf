@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="title">
       <RouterLink to="/overview">價格追蹤小幫手</RouterLink>
-      <div class="hamburger">☰</div>
+      <div class="hamburger" @click="toggleOptions">☰</div>
     </div>
-    <ul class="options">
+    <ul class="options" v-show="optionsDisplay">
       <li><RouterLink to="/overview">物價概覽</RouterLink></li>
       <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
       <li><RouterLink to="/news">相關新聞</RouterLink></li>
@@ -14,27 +14,40 @@
   </nav>
 </template>
 
-<script>
+<script setup>
+import { computed, onMounted, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 
-export default {
-  name: "NavBar",
-  computed: {
-    isLoggedIn() {
-      const userStore = useAuthStore();
-      return userStore.isLoggedIn;
-    },
-    getUserName() {
-      const userStore = useAuthStore();
-      return userStore.getUserName;
-    },
-  },
-  methods: {
-    logout() {
-      const userStore = useAuthStore();
-      userStore.logout();
-    },
-  },
+const userStore = useAuthStore();
+
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+const getUserName = computed(() => userStore.getUserName);
+
+const logout = () => {
+  userStore.logout();
+};
+
+var navbar = null;
+var navbarWidth = null;
+var optionsDisplay = ref(false);
+
+onMounted(() => {
+  navbar = document.getElementById("navbar");
+
+  navbarWidth = navbar.offsetWidth;
+  optionsDisplay.value = isOptionsDisplayed();
+  console.log(navbar);
+  console.log(navbarWidth);
+  console.log(optionsDisplay.value);
+});
+
+const isOptionsDisplayed = () => {
+  if (navbar) {
+    if (navbarWidth > 768) return true;
+    else {
+      return false;
+    }
+  }
 };
 </script>
 
