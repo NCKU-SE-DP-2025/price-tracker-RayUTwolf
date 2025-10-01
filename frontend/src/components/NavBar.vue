@@ -40,6 +40,7 @@ const logout = () => {
 var navbar = null;
 var navbarWidth = null;
 var optionsDisplay = ref(false);
+const rwdBreakpoint = 768;
 
 onMounted(() => {
   navbar = document.getElementById("navbar");
@@ -53,14 +54,14 @@ onBeforeUnmount(() => {
 
 const updateRwdDisplay = () => {
   navbarWidth = navbar.offsetWidth;
-  if (navbarWidth > 768) optionsDisplay.value = true;
+  if (navbarWidth > rwdBreakpoint) optionsDisplay.value = true;
   else {
     optionsDisplay.value = false;
   }
 };
 
 const toggleOptions = () => {
-  if (navbarWidth <= 768) {
+  if (navbarWidth <= rwdBreakpoint) {
     if (optionsDisplay.value) optionsDisplay.value = false;
     else optionsDisplay.value = true;
   }
