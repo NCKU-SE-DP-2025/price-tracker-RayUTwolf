@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="title">
       <RouterLink to="/overview">價格追蹤小幫手</RouterLink>
-      <div class="hamburger">☰</div>
+      <div class="hamburger" @click="toggleOptions">☰</div>
     </div>
-    <ul class="options">
+    <ul class="options" v-show="optionsDisplay">
       <li><RouterLink to="/overview">物價概覽</RouterLink></li>
       <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
       <li><RouterLink to="/news">相關新聞</RouterLink></li>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, onMounted, ref, onBeforeUnmount } from "vue";
 import { useAuthStore } from "@/stores/auth";
 
 const userStore = useAuthStore();
@@ -25,6 +25,33 @@ const getUserName = computed(() => userStore.getUserName);
 
 const logout = () => {
   userStore.logout();
+};
+
+var navbar = null;
+var navbarWidth = null;
+var optionsDisplay = ref(false);
+
+onMounted(() => {
+  navbar = document.getElementById("navbar");
+  if (navbar) updateRwdDisplay();
+  window.addEventListener("resize", updateRwdDisplay);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateRwdDisplay);
+});
+
+const updateRwdDisplay = () => {
+  navbarWidth = navbar.offsetWidth;
+  if (navbarWidth > 768) optionsDisplay.value = true;
+  else {
+    optionsDisplay.value = false;
+  }
+};
+
+const toggleOptions = () => {
+  if (optionsDisplay.value) optionsDisplay.value = false;
+  else optionsDisplay.value = true;
 };
 </script>
 
@@ -104,6 +131,7 @@ const logout = () => {
     padding: 10px;
     display: block;
     margin-left: auto;
+    cursor: pointer;
   }
 }
 </style>
