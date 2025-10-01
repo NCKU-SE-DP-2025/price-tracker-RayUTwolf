@@ -4,7 +4,10 @@
       <RouterLink to="/overview">價格追蹤小幫手</RouterLink>
       <div class="hamburger" @click="toggleOptions">☰</div>
     </div>
-    <ul class="options" v-show="optionsDisplay" @click="toggleOptions">
+    <ul class="options" v-show="optionsDisplay">
+      <li v-for="option in optionMenu" :key="option.id">
+        <RouterLink :to="option.to">{{ option.label }}</RouterLink>
+      </li>
       <li><RouterLink to="/overview">物價概覽</RouterLink></li>
       <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
       <li><RouterLink to="/news">相關新聞</RouterLink></li>
@@ -17,6 +20,12 @@
 <script setup>
 import { computed, onMounted, ref, onBeforeUnmount } from "vue";
 import { useAuthStore } from "@/stores/auth";
+
+const optionMenu = [
+  { to: "/overview", label: "物價概覽" },
+  { to: "/trending", label: "物價趨勢" },
+  { to: "/news", label: "相關新聞" },
+];
 
 const userStore = useAuthStore();
 
