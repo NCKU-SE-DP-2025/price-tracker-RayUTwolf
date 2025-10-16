@@ -5,11 +5,15 @@
       <div class="hamburger" @click="toggleOptions">☰</div>
     </div>
     <ul class="options" v-show="optionsDisplay">
-      <li><RouterLink to="/overview">物價概覽</RouterLink></li>
-      <li><RouterLink to="/trending">物價趨勢</RouterLink></li>
-      <li><RouterLink to="/news">相關新聞</RouterLink></li>
-      <li v-if="!isLoggedIn"><RouterLink to="/login">登入</RouterLink></li>
-      <li v-else @click="logout">Hi, {{ getUserName }}! 登出</li>
+      <li v-for="option in optionMenu" :key="option.id">
+        <RouterLink :to="option.to" @click="toggleOptions">{{
+          option.label
+        }}</RouterLink>
+      </li>
+      <li v-if="!isLoggedIn">
+        <RouterLink to="/login" @click="toggleOptions">登入</RouterLink>
+      </li>
+      <li v-else @click="logout, toggleOptions">Hi, {{ getUserName }}! 登出</li>
     </ul>
   </nav>
 </template>
@@ -17,6 +21,12 @@
 <script setup>
 import { computed, onMounted, ref, onBeforeUnmount } from "vue";
 import { useAuthStore } from "@/stores/auth";
+
+const optionMenu = [
+  { to: "/overview", label: "物價概覽" },
+  { to: "/trending", label: "物價趨勢" },
+  { to: "/news", label: "相關新聞" },
+];
 
 const userStore = useAuthStore();
 
@@ -30,6 +40,7 @@ const logout = () => {
 var navbar = null;
 var navbarWidth = null;
 var optionsDisplay = ref(false);
+const rwdBreakpoint = 768;
 
 onMounted(() => {
   navbar = document.getElementById("navbar");
@@ -43,15 +54,17 @@ onBeforeUnmount(() => {
 
 const updateRwdDisplay = () => {
   navbarWidth = navbar.offsetWidth;
-  if (navbarWidth > 768) optionsDisplay.value = true;
+  if (navbarWidth > rwdBreakpoint) optionsDisplay.value = true;
   else {
     optionsDisplay.value = false;
   }
 };
 
 const toggleOptions = () => {
-  if (optionsDisplay.value) optionsDisplay.value = false;
-  else optionsDisplay.value = true;
+  if (navbarWidth <= rwdBreakpoint) {
+    if (optionsDisplay.value) optionsDisplay.value = false;
+    else optionsDisplay.value = true;
+  }
 };
 </script>
 
