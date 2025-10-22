@@ -212,8 +212,8 @@ def session_opener():
 
 
 
-def verify(p1, p2):
-    return pwd_context.verify(p1, p2)
+def verify(input_password, db_password):
+    return pwd_context.verify(input_password, db_password)
 
 
 def check_user_password_is_correct(db, n, pwd):
