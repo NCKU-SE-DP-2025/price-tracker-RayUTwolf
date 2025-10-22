@@ -308,12 +308,12 @@ def read_news(db=Depends(session_opener)):
 )
 def read_user_news(
         db=Depends(session_opener),
-        u=Depends(authenticate_user_token)
+        user=Depends(authenticate_user_token)
 ):
     news = db.query(NewsArticle).order_by(NewsArticle.time.desc()).all()
     result = []
     for article in news:
-        upvotes, upvoted = get_article_upvote_details(article.id, u.id, db)
+        upvotes, upvoted = get_article_upvote_details(article.id, user.id, db)
         result.append(
             {
                 **article.__dict__,
