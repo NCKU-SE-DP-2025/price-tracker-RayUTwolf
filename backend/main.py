@@ -402,9 +402,9 @@ async def news_summary(
 def upvote_article(
         id,
         db=Depends(session_opener),
-        u=Depends(authenticate_user_token),
+        user=Depends(authenticate_user_token),
 ):
-    message = toggle_upvote(id, u.id, db)
+    message = toggle_upvote(id, user.id, db)
     return {"message": message}
 
 
