@@ -135,7 +135,7 @@ def get_new(is_initial=False):
     news_data = get_new_info("價格", is_initial=is_initial)
     for news in news_data:
         title = news["title"]
-        m = [
+        messages = [
             {
                 "role": "system",
                 "content": "你是一個關聯度評估機器人，請評估新聞標題是否與「民生用品的價格變化」相關，並給予'high'、'medium'、'low'評價。(僅需回答'high'、'medium'、'low'三個詞之一)",
@@ -144,7 +144,7 @@ def get_new(is_initial=False):
         ]
         ai = OpenAI(api_key="xxx").chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=m,
+            messages=messages,
         )
         relevance = ai.choices[0].message.content
         if relevance == "high":
@@ -155,9 +155,9 @@ def get_new(is_initial=False):
             content_section = soup.find("section", class_="article-content__editor")
 
             paragraphs = [
-                p.text
-                for p in content_section.find_all("p")
-                if p.text.strip() != "" and "▪" not in p.text
+                paragraph.text
+                for paragraph in content_section.find_all("p")
+                if paragraph.text.strip() != "" and "▪" not in paragraph.text
             ]
             detailed_news =  {
                 "url": news["titleLink"],
@@ -165,7 +165,7 @@ def get_new(is_initial=False):
                 "time": time,
                 "content": paragraphs,
             }
-            m = [
+            messages = [
                 {
                     "role": "system",
                     "content": "你是一個新聞摘要生成機器人，請統整新聞中提及的影響及主要原因 (影響、原因各50個字，請以json格式回答 {'影響': '...', '原因': '...'})",
@@ -175,7 +175,7 @@ def get_new(is_initial=False):
 
             completion = OpenAI(api_key="xxx").chat.completions.create(
                 model="gpt-3.5-turbo",
-                messages=m,
+                messages=messages,
             )
             result = completion.choices[0].message.content
             result = json.loads(result)
