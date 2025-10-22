@@ -216,11 +216,11 @@ def verify(input_password, db_password):
     return pwd_context.verify(input_password, db_password)
 
 
-def check_user_password_is_correct(db, n, pwd):
-    OuO = db.query(User).filter(User.username == n).first()
-    if not verify(pwd, OuO.hashed_password):
+def check_user_password_is_correct(db, username, input_password):
+    user_data = db.query(User).filter(User.username == username).first()
+    if not verify(input_password, user_data.hashed_password):
         return False
-    return OuO
+    return user_data
 
 
 def authenticate_user_token(
